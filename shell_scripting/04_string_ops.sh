@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/bin/bash
 
 myVar="Hello Buddy, How are You?"
 #length=${#myVar}
@@ -12,8 +12,12 @@ myVarLength=${#myVar}
 echo "Length of the myVar is $myVarLength"
 
 # Make variable uppercase/lowercase
-# shellcheck disable=SC2296
-echo "Upper of the myVar is ${(U)myVar}"
+echo "Upper of the myVar is ${myVar^^}"
+echo "Lower Case of the myVar is ${myVar,,}"
 
-# shellcheck disable=SC2296
-echo "Lower Case of the myVar is ${(L)myVar}"
+# Replace string from another string
+newVar=${myVar/Buddy/Shree}
+echo "New Var is --- $newVar"
+
+# To Slice a string
+echo "After slice ${myVar:6:5}"
