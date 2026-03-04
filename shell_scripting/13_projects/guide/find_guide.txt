@@ -1,0 +1,92 @@
+# Linux `find` Command — Simple Cheat Sheet
+
+## Basic Syntax
+find [path] [conditions] [action]
+
+Example:
+find . -name "file.txt"
+
+---
+
+## Search by Name
+find . -name "file.txt"        # Exact name
+find . -iname "*.jpg"          # Case-insensitive
+find . -name "*.log"           # Wildcard match
+
+---
+
+## Search by Type
+find . -type f     # Files only
+find . -type d     # Directories only
+find . -type l     # Symlinks
+
+---
+
+## Search by Size
+find . -size +100M   # Larger than 100MB
+find . -size -10k    # Smaller than 10KB
+find . -size 50M     # Exactly 50MB
+
+Units:
+k = KB  
+M = MB  
+G = GB  
+
+---
+
+## Search by Time
+find . -mtime -7     # Modified in last 7 days
+find . -mtime +30    # Older than 30 days
+find . -mmin -10     # Modified in last 10 minutes
+
+---
+
+## Search by User / Permission
+find . -user john
+find . -perm 755
+
+---
+
+## Delete Files (Be Careful)
+find . -name "*.log" -delete
+
+Safer alternative:
+find . -name "*.log" -exec rm {} +
+
+---
+
+## Run Command on Results
+find . -name "*.txt" -exec ls -l {} \;
+find . -name "*.txt" -exec ls -l {} +
+
+---
+
+## Logical Operators
+find . -type f -size +10M                # AND (default)
+find . -name "*.jpg" -o -name "*.png"    # OR
+find . ! -name "*.txt"                   # NOT
+
+Grouping:
+find . \( -name "*.jpg" -o -name "*.png" \)
+
+---
+
+## Limit Search Depth
+find . -maxdepth 1
+find . -mindepth 2
+
+---
+
+## Common Real-World Examples
+find . -type f -size +1G
+find /var/log -type f -mtime +30
+find . -type d -empty
+find / -name "config.php" 2>/dev/null
+
+---
+
+## Memory Formula
+find WHERE WHAT ACTION
+
+Example:
+find /home -type f -size +100M -delete
