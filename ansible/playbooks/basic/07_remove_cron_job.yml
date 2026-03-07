@@ -1,0 +1,17 @@
+---
+# Playbook to remove a scheduled cron job on Mac
+
+- name: Remove a scheduled cron job
+  # Run locally on Mac
+  hosts: localhost
+  # No sudo needed for user cron
+  become: no
+
+  tasks:
+    - name: Remove the test_cron.sh cron job
+      # Using the cron module to delete a cron entry
+      cron:
+        # Must match the name used when creating the cron job
+        name: "Run test_cron.sh script"
+        # State absent removes the cron job
+        state: absent

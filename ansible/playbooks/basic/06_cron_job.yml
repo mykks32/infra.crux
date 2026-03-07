@@ -1,0 +1,37 @@
+---
+# Playbook to schedule a shell script using cron on Mac
+- name: Schedule a script using cron
+  hosts: localhost
+  become: no
+
+  vars:
+    script_path: "/Users/srikriydv/Desktop/infra.crux/ansible/playbooks/basic/src/test_cron.sh"
+    log_path: "/Users/srikriydv/Desktop/infra.crux/ansible/playbooks/basic/dest/test_cron.log"
+    dest_dir: "/Users/srikriydv/Desktop/infra.crux/ansible/playbooks/basic/dest"
+
+  tasks:
+    - name: Ensure dest folder exists for logs
+      # Create the destination folder if it doesn't exist
+      file:
+        path: "{{ dest_dir }}"
+        state: directory
+        mode: '0755'
+
+    - name: Make the script executable
+      # Ensures the shell script has execute permissions
+      file:
+        path: "{{ script_path }}"
+        mode: '0755'
+        state: file
+
+    - name: Add cron job to run script every minute
+      # Using cron module to schedule the script
+      cron:
+        # Description of cron job
+        name: "Run test_cron.sh script"
+        # Run every minute
+        minute: "*"
+        # Cron will run as current Ansible user
+        user: "{{ ansible_facts['user_id'] }}"
+        # Redirect both stdout and stderr to the log file
+        job: "bash {{ script_path }} >> {{ log_path }} 2>&1"

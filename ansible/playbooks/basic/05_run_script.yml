@@ -1,0 +1,10 @@
+---
+  # Run a shell script using ansible
+- name: Run a shell script and save output
+  hosts: localhost
+  become: no
+
+  tasks:
+    - name: Execute script and save output to log
+      # Using shell with bash to run test.sh
+      shell: "bash src/test.sh >> dest/test.log 2>&1"
