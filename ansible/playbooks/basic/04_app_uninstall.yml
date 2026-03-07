@@ -1,0 +1,29 @@
+---
+- name: Uninstall and clean up a Mac app
+  hosts: localhost
+  become: no
+
+  vars:
+    # Homebrew package name
+    app_name: "firefox"
+    # GUI app name
+    app_display_name: "Firefox"
+    cleanup_paths:
+      # Default Mac app location
+      - "/Applications/{{ app_display_name }}.app"
+      # User data folder
+      - "~/Library/Application Support/{{ app_display_name }}"
+      # Preferences file
+      - "~/Library/Preferences/{{ app_display_name }}.plist"
+
+  tasks:
+    - name: Uninstall the app using Homebrew
+      homebrew:
+        name: "{{ app_name }}"
+        state: absent
+
+    - name: Remove app GUI folder if exists
+      file:
+        path: "{{ item | expanduser }}"
+        state: absent
+      loop: "{{ cleanup_paths }}"

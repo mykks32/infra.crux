@@ -1,0 +1,19 @@
+---
+- name: Install and start a Mac app
+  hosts: localhost
+  become: no
+
+  vars:
+    # Homebrew cask name
+    app_name: "firefox"
+    # GUI app name
+    app_display_name: "Firefox"
+
+  tasks:
+    - name: Install the app using homebrew
+      homebrew:
+        name: "{{ app_name }}"
+        state: present
+
+    - name: Start the app
+      command: open -a "{{ app_display_name }}"
