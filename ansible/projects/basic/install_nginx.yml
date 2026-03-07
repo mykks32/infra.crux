@@ -4,12 +4,13 @@
   become: yes
 
   tasks:
-
+      # Install ngnix on the remote server
     - name: Install nginx
       dnf:
         name: nginx
         state: present
 
+      # Start nginx server on the remote server
     - name: Start nginx
       service:
         name: nginx
