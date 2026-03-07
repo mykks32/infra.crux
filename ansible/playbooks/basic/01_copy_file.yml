@@ -1,0 +1,27 @@
+---
+# Marks the beginning of yml file required by ansible
+
+  # Name that appear in terminal.
+- name: Copy hello.txt to output folder
+  # Target Machine -> localhost or target ip: (hosts: 192.168.1.10) for remote servers.
+  hosts: localhost
+  # Whether to use sudo/admin privileges or not -> yes/no (yes -> if copying to /usr/local)
+  become: no
+  # Defines a list of actions for ansible to execute
+  # eg: tasks:
+  #  - name: Task 1
+  #    ...
+  #  - name: Task 2
+  #    ...
+  tasks:
+    # Task Descriptions
+    # example output:
+    # TASK [Copy hello.txt] **********************************************************************************
+    - name: Copy hello.txt
+      # Ansible module
+      # Syntax: <module_name>
+      copy:
+        # Parameters of modules
+        # Relative or Absolute path
+        src: src/hello.txt
+        dest: dest/hello_copy.txt
