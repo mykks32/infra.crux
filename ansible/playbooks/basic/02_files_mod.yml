@@ -1,0 +1,18 @@
+---
+- name: Create a file with content, create folder, and set permissions.
+  hosts: localhost
+  become: no
+  tasks:
+    # Create a folder named file_modify under dest
+    - name: Create a folder name file_modify
+      file:
+        path: dest/file_modify
+        state: directory
+        mode: '0755'
+    # Create file file_mode.txt under file_modify folder with permissions
+    - name: Create or modify file_mod.txt with content and permissions.
+      copy:
+        dest: dest/file_modify/file_mod.txt
+        content: "This is a test file created/modified by Ansible.\nDate: {{ ansible_facts['date_time']['date'] }}"
+        force: yes
+        mode: '0644'
