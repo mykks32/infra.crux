@@ -1,0 +1,19 @@
+---
+# Kill a process on remote server
+# pgrep nginx | xargs kill -> It will kill the process
+# systemctl nginx start -> To start the nginx process
+# systemctl nginx stop -> To stop the nginx process 
+- name: Kill a process
+  hosts: all
+  become: yes
+ 
+  tasks:
+  - name: Find a process and kill it
+    ignore_errors: yes
+    # Shell command to kill a process.
+    shell: "pgrep nginx | xargs kill"
+  
+  - name: start a service
+    service:
+      name: nginx
+      state: started
