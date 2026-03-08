@@ -126,5 +126,15 @@ Example:
 Development → port 8080
 Production → port 80
 ```
+
+### 8. For Server host
+In etc/ansible/hosts add
+```txt
+serverA ansible_host=192.168.1.77 ansible_user=mykks32
+```
+access via
+```bash
+ansible serverA -m ping
+```
 ---
 
