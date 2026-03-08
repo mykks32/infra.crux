@@ -1,14 +1,14 @@
 ---
 # Download a file
 - name: Download a file
-  hosts: all
+  hosts: localhost
   
   tasks:
   - name: Download file
     get_url:
       url: https://filesamples.com/samples/document/txt/sample1.txt
-      dest: /home/mykks32/Downloads
-      # dest: /home/mykks32/Desktop/infra.crux/ansible/playbooks/intermediate
+      # dest: /home/mykks32/Downloads
+      dest: /home/mykks32/Desktop/infra.crux/ansible/playbooks/intermediate/dest
       owner: mykks32
       group: mykks32
       mode: 0777
