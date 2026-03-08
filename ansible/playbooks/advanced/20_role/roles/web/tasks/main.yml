@@ -1,0 +1,18 @@
+---
+# tasks file for role
+- name: Install nginx
+  dnf:
+    name: "{{ web_package }}"
+    state: present
+
+- name: Copy website file
+  copy:
+    src: index.html
+    dest: "{{ web_root }}/index.html"
+  notify: Restart nginx
+
+- name: Start nginx service
+  service:
+    name: "{{ web_service }}"
+    state: started
+    enabled: true

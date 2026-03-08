@@ -1,7 +1,0 @@
----
-# tasks file for role
-- name: Place a custom html file on remote server
-  copy:
-    src: index.html
-    dest: /home/mykks/Desktop/index.html
-  become: true

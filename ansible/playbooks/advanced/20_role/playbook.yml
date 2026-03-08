@@ -1,0 +1,7 @@
+---
+- name: Run web role
+  hosts: all
+  become: true
+
+  roles:
+    - web

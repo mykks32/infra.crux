@@ -1,0 +1,4 @@
+---
+# vars file for role
+web_package: nginx
+web_service: nginx
