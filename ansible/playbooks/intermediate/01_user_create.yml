@@ -1,0 +1,23 @@
+---
+- name: User management
+  # hosts: all (remote servers set in the inventory of etc/ansible/hosts)
+  hosts: localhost
+  become: yes
+  
+  tasks:
+    - name: Ensure group QA exists
+      group:
+        name: QA
+        state: present
+    
+    - name: User creation
+      user:
+        # Name of the User
+        name: krishna
+        comment: new user adding for New Team
+        # User bin bash Shell
+        shell: /bin/bash
+        # Add the user to the group
+        group: QA
+        # Add group by using groupadd QA
+        # Check it via cat /etc/group

@@ -1,0 +1,25 @@
+---
+- name: Delete user
+  hosts: localhost   # change to 'all' for remote servers
+  become: yes
+
+  tasks:
+    - name: Delete user krishna and remove home directory
+      user:
+        name: krishna
+        state: absent
+        # state absent if want to delete user
+        remove: yes
+        # Remove directory of the user.
+
+    - name: Ensure home directory is gone
+      file:
+        path: /home/krishna
+        state: absent
+
+    - name: Delete group QA if it exists
+      group:
+        # Group Name to Delete
+        name: QA
+        # Remove the group
+        state: absent 
