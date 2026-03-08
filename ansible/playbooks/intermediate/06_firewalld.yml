@@ -1,0 +1,33 @@
+---
+- name: Ensure NGINX is running and port 80 is open
+  hosts: all
+  become: true
+
+  tasks:
+    # Ensure firewall is running
+    - name: Start and enable firewalld
+      ansible.builtin.service:
+        name: firewalld
+        state: started
+        enabled: true
+
+    # Allow HTTP traffic on port 80
+    - name: Open HTTP port 80
+      ansible.posix.firewalld:
+        port: 80/tcp
+        permanent: true
+        state: enabled
+        immediate: yes
+
+    # Install NGINX if not present
+    - name: Install nginx
+      ansible.builtin.yum:
+        name: nginx
+        state: present
+
+    # Start NGINX and enable on boot
+    - name: Start and enable nginx
+      ansible.builtin.service:
+        name: nginx
+        state: started
+        enabled: true
