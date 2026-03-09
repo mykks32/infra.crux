@@ -1,0 +1,26 @@
+---
+- name: Installing app on different os family
+  hosts: localhost
+
+  tasks:
+    - name: Install httpd on RedHat
+      yum:
+        name: httpd
+        state: present
+      # INJECT_FACTS_AS_VARS default to True is deprecated
+      # Use ansible_facts["fact_name"] instead
+      when: ansible_facts["os_family"] == "RedHat"
+
+    - name: Install apache2 on Ubuntu
+      apt:
+        name: apache2
+        state: present
+      when: ansible_facts["os_family"] == "Ubuntu"
+
+    - name: Install vlc on Darwin/MacOS
+      homebrew:
+        name: vlc
+        state: present
+      when: ansible_facts["os_family"] == "Darwin"
+  # To find all the ansible related server into
+  # ansible serverA -m setup
