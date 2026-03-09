@@ -8,7 +8,7 @@
     get_url:
       url: https://filesamples.com/samples/document/txt/sample1.txt
       # dest: /home/mykks32/Downloads
-      dest: /home/mykks32/Desktop/infra.crux/ansible/playbooks/[9-18]intermediate/dest
+      dest: /home/mykks32/Desktop/infra.crux/ansible/playbooks/[8-17]intermediate/dest
       owner: mykks32
       group: mykks32
       mode: 0777
