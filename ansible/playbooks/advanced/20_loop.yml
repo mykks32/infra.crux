@@ -1,5 +1,5 @@
 ---
-# Loop to create file and append name_list as an loop
+# Loop to create file and append name_list as a loop
 - name: Loop and write names to a file
   hosts: localhost
   gather_facts: false

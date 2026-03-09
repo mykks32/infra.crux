@@ -5,9 +5,9 @@
   become: no
 
   vars:
-    script_path: "/Users/srikriydv/Desktop/infra.crux/ansible/playbooks/basic/src/test_cron.sh"
-    log_path: "/Users/srikriydv/Desktop/infra.crux/ansible/playbooks/basic/dest/test_cron.log"
-    dest_dir: "/Users/srikriydv/Desktop/infra.crux/ansible/playbooks/basic/dest"
+    script_path: "/Users/srikriydv/Desktop/infra.crux/ansible/playbooks/[1-8]basic/src/test_cron.sh"
+    log_path: "/Users/srikriydv/Desktop/infra.crux/ansible/playbooks/[1-8]basic/dest/test_cron.log"
+    dest_dir: "/Users/srikriydv/Desktop/infra.crux/ansible/playbooks/[1-8]basic/dest"
 
   tasks:
     - name: Ensure dest folder exists for logs
