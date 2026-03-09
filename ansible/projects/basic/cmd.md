@@ -53,9 +53,14 @@ If it does not ask for password, SSH keys work.
 ***Update inventory.ini.***
 ```bash
 [webservers]
-192.168.64.6 ansible_user=mykks32 ansible_ssh_private_key_file=~/.ssh/mykks32
+serverA ansible_host=192.168.101.26 ansible_user=mykks ansible_ssh_private_key_file=~/.ssh/mykks32
 ```
 No --ask-pass.
+
+Check it via:
+```bash
+ansible serverA -m ping
+```
 
 ### Step 5: Enable Passwordless Sudo on Servers
 
