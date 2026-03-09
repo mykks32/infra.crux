@@ -1,0 +1,37 @@
+---
+# Loop to create file and append name_list as an loop
+- name: Loop and write names to a file
+  hosts: localhost
+  gather_facts: false
+  vars:
+    # Destination folder where the file will be stored
+    dest_folder: "/Users/rock/Desktop/infra.crux/ansible/playbooks/advanced/dest"
+
+    # File name to write the names into
+    dest_file: "names.txt"
+
+    # List of names to add to the file
+    name_list:
+      - Alice
+      - Bob
+      - Charlie
+
+  tasks:
+    - name: Ensure the destination folder exists
+      # Creates the folder if it doesn't exist
+      file:
+        path: "{{ dest_folder }}"
+        state: directory
+        mode: '0755'
+
+    - name: Append names to the file using lineinfile
+      # Writes each name to a new line in the file
+      # - 'path' specifies the file location
+      # - 'line' specifies the content to write
+      # - 'create: yes' creates the file if it doesn't exist
+      # - Loop iterates over all names in the list
+      lineinfile:
+        path: "{{ dest_folder }}/{{ dest_file }}"
+        line: "{{ item }}"
+        create: yes
+      loop: "{{ name_list }}"
