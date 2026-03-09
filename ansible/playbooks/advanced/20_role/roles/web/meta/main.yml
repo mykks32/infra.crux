@@ -1,5 +1,5 @@
 ---
 galaxy_info:
-  author: devops
+  author: mykks32
   description: Simple nginx role
   min_ansible_version: 2.9
