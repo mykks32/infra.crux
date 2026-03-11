@@ -1,0 +1,21 @@
+pipeline {
+    agent any
+    triggers {
+        cron('H 2 * * *') // runs daily at 2 AM
+    }
+    stages {
+        stage('Scheduled Task') {
+            steps {
+                echo 'Running scheduled cron job'
+            }
+        }
+    }
+    post {
+        success {
+            echo 'Cron Job Success!'
+        }
+        failure {
+            echo 'Cron Job Failed!'
+        }
+    }
+}

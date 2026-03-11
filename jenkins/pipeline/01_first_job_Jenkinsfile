@@ -1,0 +1,15 @@
+pipeline {
+    agent any
+    stages {
+        stage('Hello World') {
+            steps {
+                echo 'Running First Job!'
+            }
+        }
+    }
+    post {
+        always {
+            echo 'Job Completed'
+        }
+    }
+}

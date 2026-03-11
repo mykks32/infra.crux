@@ -1,0 +1,12 @@
+pipeline {
+    agent any
+    stages {
+        stage('Run on Remote Server') {
+            steps {
+                sshagent(['remote-server-cred']) {
+                    sh 'ssh user@remote-server "ls -la /var/www"'
+                }
+            }
+        }
+    }
+}

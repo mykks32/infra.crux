@@ -1,0 +1,20 @@
+pipeline {
+    agent any
+    environment {
+        REPO_URL = 'git@github.com:mykks32/sample-repo.git'
+    }
+    stages {
+        stage('Checkout') {
+            steps {
+                git branch: 'main', url: "${REPO_URL}"
+            }
+        }
+        stage('Build') {
+            steps {
+                sh 'echo "Building project..."'
+                // replace with your build command
+                sh './build.sh'
+            }
+        }
+    }
+}

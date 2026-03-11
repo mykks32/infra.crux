@@ -1,0 +1,23 @@
+pipeline {
+    agent any
+    parameters {
+        string(name: 'USERNAME', defaultValue: 'user', description: 'Enter user name')
+        booleanParam(name: 'DEPLOY', defaultValue: true, description: 'Deploy?')
+    }
+    stages {
+        stage('Print Params') {
+            steps {
+                echo "Username is ${params.USERNAME}"
+                echo "Deploy flag is ${params.DEPLOY}"
+            }
+        }
+        stage('Conditional Deploy') {
+            when {
+                expression { return params.DEPLOY }
+            }
+            steps {
+                echo 'Deploying application...'
+            }
+        }
+    }
+}

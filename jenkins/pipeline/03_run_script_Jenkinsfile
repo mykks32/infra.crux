@@ -1,0 +1,16 @@
+pipeline {
+    agent any
+    stages {
+        stage('Run Script') {
+            steps {
+                sh 'chmod +x ./run-script.sh'
+                sh './run-script.sh'
+            }
+        }
+        stage('Archive Output') {
+            steps {
+                archiveArtifacts artifacts: 'output.txt', allowEmptyArchive: true
+            }
+        }
+    }
+}
