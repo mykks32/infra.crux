@@ -35,7 +35,7 @@ my_role/
 Use the `ansible-galaxy` command:
 
 ```bash
-ansible-galaxy init my_role
+ansible-galaxy role init roles/web
 ```
 
 This generates the folder structure automatically.

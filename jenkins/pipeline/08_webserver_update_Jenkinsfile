@@ -1,0 +1,73 @@
+pipeline {
+    agent any
+
+    environment {
+        // Sudo password stored in Jenkins credentials
+        ANSIBLE_BECOME_PASS = credentials('jenkins_sudo_pass')
+        // Git repository SSH URL
+        REPO_URL = 'git@github.com:mykks32/test.git'
+        // HTML file in repo
+        HTML_FILE = 'index.html'
+    }
+
+    stages {
+
+        stage('Checkout Repository') {
+            steps {
+                /*
+                 * Perfect — if you want to clone using Git over SSH, you need to make sure that:
+                 * 1. Jenkins user has an SSH key added to your Git server (GitHub, GitLab, etc.).
+                 * 2. The pipeline uses the SSH URL (e.g., git@github.com:user/repo.git).
+                 * 3. You use SSH credentials in Jenkins if required.
+                 */
+                echo "Cloning repository via SSH..."
+                sshagent(credentials: ['git_ssh_key']) {
+                    sh "git clone -b main ${REPO_URL}"
+                }
+            }
+        }
+
+        stage('Copy HTML to Ansible Role') {
+            steps {
+                /*
+                 * Copy HTML to Ansible role
+                 */
+                echo "Copying HTML file to roles/web/files/..."
+                sh """
+                    mkdir -p /etc/ansible/playbooks/remote_server/roles/web/files
+                    cp ${HTML_FILE} /etc/ansible/playbooks/remote_server/roles/web/files/
+                """
+            }
+        }
+
+        stage('Run Ansible Playbook') {
+            steps {
+                /*
+                 * Run the Ansible playbook
+                 */
+                echo "Running Ansible playbook..."
+                sh """
+                    ansible-playbook /etc/ansible/playbooks/remote_server/playbook.yml \
+                    -i /etc/ansible/playbooks/remote_server/inventory.ini \
+                    -f 5 \
+                    --extra-vars "ansible_become_pass=${ANSIBLE_BECOME_PASS}"
+                """
+            }
+        }
+    }
+
+    post {
+        success {
+            /*
+             * Show success message
+             */
+            echo "Playbook completed successfully!"
+        }
+        failure {
+            /*
+             * Show failure message
+             */
+            echo "Playbook failed!"
+        }
+    }
+}
