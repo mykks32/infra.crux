@@ -1,0 +1,30 @@
+pipeline {
+    agent any
+
+    environment {
+        APP_NAME = 'nestjs-app'
+        APP_PORT = '3000'
+        NODE_ENV = 'development'
+    }
+
+    stages {
+        stage('Show Variables') {
+            steps {
+                echo "Application Name: ${APP_NAME}"
+                echo "Application Port: ${APP_PORT}"
+                echo "Node Environment: ${NODE_ENV}"
+                echo "Build Number: ${BUILD_NUMBER}"
+                echo "Job Name: ${JOB_NAME}"
+                echo "Workspace: ${WORKSPACE}"
+            }
+        }
+
+        stage('Simple Commands') {
+            steps {
+                sh 'echo "Running in $NODE_ENV mode on port $APP_PORT"'
+                sh 'echo "App name is $APP_NAME"'
+                sh 'echo "Current directory: $(pwd)"'
+            }
+        }
+    }
+}
