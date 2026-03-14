@@ -1,5 +1,5 @@
 ## Jenkins Environment Variables
-Environment variables in Jenkins allow you to store configuration values, build information, system paths, credentials, and parameters. They make pipelines **flexible, reusable, and maintainable**. This document covers all aspects of environment variables in Jenkins.
+> Environment variables in Jenkins allow you to store configuration values, build information, system paths, credentials, and parameters. They make pipelines **flexible, reusable, and maintainable**. This document covers all aspects of environment variables in Jenkins.
 
 ---
 

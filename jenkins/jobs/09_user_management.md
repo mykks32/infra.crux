@@ -1,6 +1,6 @@
 # Jenkins User Management
 
-User management in Jenkins controls **who can access Jenkins and what actions they can perform**. Proper user management is important to secure CI/CD pipelines and restrict unauthorized access.
+> User management in Jenkins controls **who can access Jenkins and what actions they can perform**. Proper user management is important to secure CI/CD pipelines and restrict unauthorized access.
 
 This document explains how to:
 

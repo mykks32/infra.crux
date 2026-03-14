@@ -1,0 +1,44 @@
+pipeline {
+    agent any
+
+    // Tells Jenkins to add NodeJS-16 binaries to PATH for all stages
+    // "NodeJS-16" must exactly match the name set in Manage Jenkins → Tools
+    tools {
+        nodejs 'NodeJS-16'
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                // Pulls latest code from the configured branch
+                git branch: 'main', url: 'https://github.com/Jardielson-s/jenkins.git'
+            }
+        }
+        stage ('check version') {
+            steps {
+                sh 'node -v && npm -v' // Checks which node & npm version you are using
+            }
+        }
+        stage('Install') {
+            steps {
+                sh 'npm install'      // installs node_modules
+            }
+        }
+        stage('Build') {
+            steps {
+                sh 'npm run build'    // compiles TypeScript → dist/
+            }
+        }
+        stage('Test') {
+            steps {
+                sh 'npm run test'     // runs Jest unit tests
+            }
+        }
+    }
+
+    post {
+        success { echo 'Build passed!' }
+        failure { echo 'Build failed — check logs.' }
+        always  { cleanWs() }         // wipe workspace after every run
+    }
+}
